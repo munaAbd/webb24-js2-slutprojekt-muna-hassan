@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom';
 function Cart({ cart, setCart }) {
   const navigate = useNavigate();
 
-  // Funktion för att beräkna totalpriset
+
   const calculateTotal = () => {
     return cart.reduce((total, product) => total + product.price * product.quantity, 0);
   };
 
-  // Hantera "Slutför köp"
+  
   const handleCheckout = () => {
     alert('Tack för att du handlade hos oss!');
-    setCart([]); // Töm varukorgen
-    navigate('/'); // Gå tillbaka till produktsidan
+    setCart([]); 
+    navigate('/'); 
   };
 
   return (

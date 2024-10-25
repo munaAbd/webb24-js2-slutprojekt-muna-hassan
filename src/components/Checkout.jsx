@@ -1,16 +1,15 @@
 import React from 'react';
 
 const Checkout = ({ cart, clearCart }) => {
-  // Funktion för att beräkna totalpris baserat på antalet produkter
+  
   const calculateTotal = () => {
     return cart.reduce((total, product) => total + product.price * product.quantity, 0);
   };
 
-  // Funktion som körs vid slutförande av köp
+ 
   const handleCheckout = () => {
     alert('Köp slutfört! Tack för att du handlade hos oss!');
-    clearCart(); // Tömmer varukorgen efter genomfört köp
-  };
+    clearCart(); 
 
   return (
     <div>
@@ -37,5 +36,6 @@ const Checkout = ({ cart, clearCart }) => {
     </div>
   );
 };
+}
 
 export default Checkout;

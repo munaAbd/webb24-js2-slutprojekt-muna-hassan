@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase';  // Importera Firebase-databasreferensen
-import { ref, get, update } from 'firebase/database';  // Använd 'ref', 'get', och 'update' från Firebase
+import { db } from '../firebase';  
+import { ref, get, update } from 'firebase/database';  
 
 function Product({ addToCart }) {
   const [products, setProducts] = useState([]);
@@ -8,14 +8,14 @@ function Product({ addToCart }) {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productsRef = ref(db, 'products');  // Hämta referens till 'products' noden
+      const productsRef = ref(db, 'products'); 
       try {
         console.log("Försöker hämta produkter från Firebase...");
-        const snapshot = await get(productsRef);  // Hämta data från Firebase
+        const snapshot = await get(productsRef);  
         if (snapshot.exists()) {
-          const productData = snapshot.val();  // Konvertera snapshot till ett objekt
+          const productData = snapshot.val();  
           console.log("Produkter hämtade från Firebase:", productData);
-          setProducts(Object.entries(productData).map(([key, value]) => ({ id: key, ...value })));  // Konvertera till array
+          setProducts(Object.entries(productData).map(([key, value]) => ({ id: key, ...value })));  
         } else {
           console.log('Inga produkter hittades.');
         }
@@ -32,20 +32,18 @@ function Product({ addToCart }) {
   const handleAddToCart = (product) => {
     if (product.inventory > 0) {
       const newInventory = product.inventory - 1;
-      const productRef = ref(db, `products/${product.id}`);  // Referens till specifik produkt
+      const productRef = ref(db, `products/${product.id}`);  
 
       console.log(`Uppdaterar lagersaldo för ${product.name}, nytt saldo: ${newInventory}`);
-      update(productRef, { inventory: newInventory })  // Uppdatera lagersaldo i Firebase
+      update(productRef, { inventory: newInventory })  
         .then(() => {
           console.log(`${product.name} lagersaldo uppdaterat i Firebase.`);
 
-          // Uppdatera produkterna lokalt efter lyckad Firebase-uppdatering
+
           const updatedProducts = products.map((p) =>
             p.id === product.id ? { ...p, inventory: newInventory } : p
           );
-          setProducts(updatedProducts);  // Uppdatera state med nya lagersaldot
-
-          // Lägg till produkten i varukorgen
+          setProducts(updatedProducts);  
           addToCart({ ...product, quantity: 1 });
         })
         .catch((error) => {

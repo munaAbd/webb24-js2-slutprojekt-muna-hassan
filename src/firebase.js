@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database"; // För databasen
-
+import { getDatabase } from "firebase/database"; 
 const firebaseConfig = {
   apiKey: "AIzaSyBYfM-rE0-YySeomIYfXrWTas1MaoSW8tk",
   authDomain: "myreactapp-1e39d.firebaseapp.com",
@@ -13,11 +12,7 @@ const firebaseConfig = {
   measurementId: "G-PEXCJCHRRG"
 };
 
-
-
-// Initiera Firebase och exportera db
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getDatabase(app); // Skapa och exportera databasreferensen
-
+const db = getDatabase(app); 
 export { db, analytics };
